@@ -67,12 +67,6 @@ border:1px solid #e74c3c;
 
 <input id="code" placeholder="Ex: NDT-E-C-001-2026">
 
-  document.getElementById("codigo").addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    verificar();
-  }
-});
-
 <button onclick="verificar()">Verificar</button>
 
 <div id="resultado"></div>
@@ -81,13 +75,19 @@ border:1px solid #e74c3c;
 
 <script>
 
+  document.getElementById("code").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    verificar();
+  }
+});
+
 async function verificar(){
 
 const res = await fetch("certificados.json")
 
 const banco = await res.json()
 
-const codigo = document.getElementById("code").value.trim()
+const codigo = document.getElementById("code").value.trim().toUpperCase()
 
 const cert = banco.find(c => c.codigo === codigo)
 
